@@ -7,14 +7,14 @@ import Dashboard from '../screens/Dashboard';
 import BirthdayList from '../screens/BirthdayList';
 import StudentList from '../screens/StudentList';
 import ExaminationMarks from '../screens/ExaminationMarks';
-import Communication from '../screens/Communication';
+import CommunicationStack from './CommunicationStack';
 import AssignmentStack from './AssignmentStack';
 import Reports from '../screens/Reports';
 import Calendar from '../screens/Calendar';
 import Marks from '../screens/Marks';
 import AboutUs from '../screens/AboutUs';
-import EventsHolidays from '../screens/EventsHolidays';
-import NewsEventGallery from '../screens/NewsEventGallery';
+import EventsAndHolidaysStack from './EventsAndHolidaysStack';
+import NewsAndEventsGalleryStack from './NewsAndEventsGalleryStack';
 import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {logout} from '../services/auth.services';
@@ -50,17 +50,14 @@ export default function DashboardStack({ navigation}) {
             }}/>
             <Stack.Screen name="Attendance" component={Attendance}/>
             <Stack.Screen name="Student Attendance" component={StudentAttendance}/>
-            <Stack.Screen name="Communication" component={Communication}/>
-            <Stack.Screen name="Assignment" component={AssignmentStack} options={{
-                headerShown:false
-                }}
-            />
+            <Stack.Screen name="Communication" component={CommunicationStack} options={{headerShown:false}}/>
+            <Stack.Screen name="Assignment" component={AssignmentStack} options={{headerShown:false }}/>
             <Stack.Screen name="Reports" component={Reports}/>
             <Stack.Screen name="TimeTable" component={TimeTable} />
             <Stack.Screen name="Assessment" component={Assessment}/>
             <Stack.Screen name="Calendar" component={Calendar}/>
-            <Stack.Screen name="Events & Holidays" component={EventsHolidays}/>
-            <Stack.Screen name="News & Event Gallery" component={NewsEventGallery}/>
+            <Stack.Screen name="Events & Holidays" component={EventsAndHolidaysStack}/>
+            <Stack.Screen name="News & Event Gallery" component={NewsAndEventsGalleryStack}/>
             <Stack.Screen name="Marks" component={Marks}/>
             <Stack.Screen name="Birthday List" component={BirthdayList}/>
             <Stack.Screen name="Student List" component={StudentList}/>

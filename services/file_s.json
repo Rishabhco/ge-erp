@@ -1,14 +1,16 @@
-{
-    "assingmentbody": "Test English UKG",
-    "assingmentdate": "2023-05-31T00:00:00",
-    "assingmentname": "Test English UKG",
-    "assingmenttype_id": 227,
-    "attachments": "https://geeroot.s3.ap-south-1.amazonaws.com/Geedemo//UploadDocuments/Communication/SendAssignment/05-31-2023/91728840-4c9d-4624-9e2f-d1ee023d0d9c.jpg",
-    "commassingment_id": 4,
-    "course_id": 11,
-    "filenames": "download.jpg",
-    "marks": 10,
-    "subject": "ENGLISH",
-    "submitbydate": "2023-06-30T13:55:20",
-    "submittedondate": null
-}
+[
+    {
+        "asgmapping_id": 2,
+        "attachments": null,
+        "commmode_id": 138,
+        "commmodename": "WebPortal only",
+        "commsubject": "testing",
+        "commtosend_id": 11,
+        "file_name": null,
+        "isdeleted": false,
+        "mailsmsbody": "testing",
+        "senddate": "2023-05-24T11:52:19.227",
+        "sentby": "Sunita Gupta"
+    }
+
+]

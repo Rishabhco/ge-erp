@@ -16,3 +16,19 @@ export const defaultAuthDetail={
     GroupID: "1",
     UserGroupID: "3"
 }
+
+export const SysMaster={
+    Holiday: 9,
+    Event: 41
+}
+
+export const UserType ={
+    Student :'stu',
+    Employee :'emp'
+}
+
+export const UserTypeIdConstant = {
+    Candidate: 39,
+    Student: 38,
+    Teacher: 37
+}

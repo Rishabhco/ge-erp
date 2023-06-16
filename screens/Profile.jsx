@@ -153,12 +153,14 @@ const styles = StyleSheet.create({
     width: '70%',
     alignItems: 'center',
     justifyContent: 'center',
+    color:"#222222"
   },
   cardHeading: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
     textAlign: 'center',
+    color:"#222222"
   },
   detailsContainer: {
     paddingHorizontal: 20,
@@ -168,12 +170,15 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     borderBottomColor: 'black',
     borderBottomWidth: 1,
+    fontSize:14,
     width: '100%',
+    color:"#222222"
   },
   heading: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 5,
+    color:"#222222"
   },
 });
 

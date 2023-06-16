@@ -1,8 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import Assignment from '../screens/Assignment';
 import AssignmentDetail from '../screens/AssignmentDetail';
-import Button from "react-native";
-import { useEffect } from 'react';
 
 const Stack = createStackNavigator();
 
