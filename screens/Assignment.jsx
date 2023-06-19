@@ -6,7 +6,6 @@ import moment from 'moment';
 
 const Item = ({ title, course, marks, assingDate, dueDate, onPress }) => {
     const formattedAssingDate = moment(assingDate).format('MMM D, YYYY');
-    // const formattedDueDate = moment(dueDate).format('MM/DD/YYYY hh:mm A');
     return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.item}>
@@ -76,9 +75,6 @@ const styles = StyleSheet.create({
         marginVertical: 8,
         marginHorizontal: 16,
     },
-    title: {
-        fontSize: 32,
-    },
     item: {
       padding: 20,
       marginVertical: 8,
@@ -112,15 +108,18 @@ const styles = StyleSheet.create({
     title: {
       fontSize: 16,
       marginBottom: 10,
+      color:"#222222"
     },
     dateContainer: {
       flexDirection: 'row',
     },
     dateLabel: {
       fontWeight: 'bold',
+      color:"#222222"
     },
     dateValue: {
       marginLeft: 5,
+      color:"#222222"
     },
 });
 

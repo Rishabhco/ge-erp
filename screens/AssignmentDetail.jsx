@@ -139,25 +139,30 @@ const styles = StyleSheet.create({
   },
   dos: {
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 16,
     marginRight: 10,
+    color:"#222222"
   },
   marks: {
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 16,
+    color:"#222222"
   },
   subject: {
     fontWeight: 'bold',
     fontSize: 20,
     marginBottom: 10,
+    color:"#222222"
   },
   instructions: {
     fontWeight: 'bold',
     fontSize: 16,
+    color:"#222222"
   },
   assingmentbody: {
     fontSize: 16,
     marginBottom: 10,
+    color:"#222222"
   },
   attachmentContainer: {
     flexDirection: 'row',

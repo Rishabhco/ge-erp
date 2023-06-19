@@ -32,7 +32,7 @@ const Dashboard = ({navigation}) => {
   },[]);
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.profileSection}>
         <View style={styles.profileInfo}>
           <Text style={styles.name}>{name}</Text>
@@ -45,7 +45,7 @@ const Dashboard = ({navigation}) => {
           resizeMode="cover"
         />
       </View>
-      <ScrollView contentContainerStyle={styles.optionsSection}>
+      <View style={styles.optionsSection}>
         {options.map((option, index) => (
           <TouchableOpacity
             key={index}
@@ -56,14 +56,14 @@ const Dashboard = ({navigation}) => {
             <Text style={styles.optionText}>{option.name}</Text>
           </TouchableOpacity>
         ))}
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: '#fff',
   },
   profileSection: {
@@ -116,6 +116,8 @@ const styles = StyleSheet.create({
   },
   optionText: {
     textAlign: 'center',
+    color:"#222222",
+    fontWeight: 'normal',
   },
 });
 

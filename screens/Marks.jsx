@@ -1,5 +1,5 @@
 import React, { useEffect,useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Animated,ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {getMarks} from "../services/marks.services"
 
@@ -60,7 +60,7 @@ const Marks = () => {
     };
 
     return (
-        <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
         {marks.map((item) => (
             <View key={item.key}>
                 <TouchableOpacity style={styles.cardHeader}  onPress={() => toggleCard(item.key)}  >
@@ -97,13 +97,13 @@ const Marks = () => {
                 </View>
             </View>
         ))}
-      </View>
+      </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     padding: 20,
     backgroundColor: '#fff',
   },

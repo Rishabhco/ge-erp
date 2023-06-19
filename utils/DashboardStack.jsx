@@ -15,7 +15,7 @@ import Marks from '../screens/Marks';
 import AboutUs from '../screens/AboutUs';
 import EventsAndHolidaysStack from './EventsAndHolidaysStack';
 import NewsAndEventsGalleryStack from './NewsAndEventsGalleryStack';
-import { TouchableOpacity } from 'react-native';
+import { Alert,TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {logout} from '../services/auth.services';
 
@@ -23,23 +23,37 @@ const Stack = createStackNavigator();
 
 export default function DashboardStack({ navigation}) {
     const handleLogout = () => {
-        logout().then((response) => {
-            console.log(response);
-            navigation.navigate('Login');
-        }).catch((error) => {
-            console.log(error);
-        });
+        Alert.alert("Logout","Are you sure you want to logout?",[
+            {
+                text:"Cancel",
+                style:"cancel"
+            },{
+                text:"Logout",
+                onPress:() => {
+                    logout().then((response) => {
+                        console.log(response);
+                        navigation.navigate('Login');
+                    }).catch((error) => {
+                        console.log(error);
+                    })
+                },
+                style:"destructive"
+            }
+        ],
+        { cancelable: false }
+        )
+        
     }
 
     return (
         <Stack.Navigator initialRouteName='Home' id="dashboardStack"
-            screenOptions={{
-                headerShown: true,
-                headerTitleAlign:'center',
-                headerStyle:{backgroundColor: '#233698'},
-                headerTintColor:"#ffffff"
+        screenOptions={{
+            headerShown: true,
+            headerTitleAlign:'center',
+            headerStyle:{backgroundColor: '#233698'},
+            headerTintColor:"#ffffff"
             }}
-        >
+            >
             <Stack.Screen name="Home" component={Dashboard} options={{
                 headerRight: () => (
                     <TouchableOpacity onPress={handleLogout} style={{ marginRight: 10 }}>

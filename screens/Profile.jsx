@@ -17,7 +17,7 @@ const Profile = () => {
       }
     });
     AsyncStorage.getItem('Profile').then((response) => {
-        setProfile(JSON.parse(response));
+      setProfile(JSON.parse(response));
     })
   }, []);
 
@@ -31,43 +31,43 @@ const Profile = () => {
             <View style={styles.cardContainer}>
                 <View style={styles.card}>
                     <Text style={styles.cardHeading}>{!profile.studentname ? 'student name':profile.studentname}</Text>
-                    <Text>{!profile.contactmobileno ? 'mobile no': profile.contactmobileno}</Text> 
-                    <Text>{!profile.dob ? 'dob':profile.dob}</Text>
+                    <Text style={styles.textStyle}>{!profile.contactmobileno ? 'mobile no': profile.contactmobileno}</Text> 
+                    <Text style={styles.textStyle}>{!profile.dob ? 'dob':profile.dob}</Text>
                 </View>
             </View>
         </View>
         <View style={[styles.sectionContainer, styles.detailsContainer]}>
             <View style={styles.detailsItem}>
                 <Text style={styles.heading}>Admission Number</Text>
-                <Text>{!profile.admissionnumber ?'admission no':profile.admissionnumber}</Text>
+                <Text style={styles.textStyle}>{!profile.admissionnumber ?'admission no':profile.admissionnumber}</Text>
             </View>
             <View style={styles.detailsItem}>
                 <Text style={styles.heading}>Class Teacher</Text>
-                <Text>{!profile.classteacher ? 'class teacher':profile.classteacher}</Text>
+                <Text style={styles.textStyle}>{!profile.classteacher ? 'class teacher':profile.classteacher}</Text>
             </View>
             <View style={styles.detailsItem}>
                 <Text style={styles.heading}>Class</Text>
-                <Text>{profile.classname+", "+profile.sectionname}</Text>
+                <Text style={styles.textStyle}>{profile.classname+", "+profile.sectionname}</Text>
             </View>
             <View style={styles.detailsItem}>
                 <Text style={styles.heading}>Roll No.</Text>
-                <Text></Text>
+                <Text style={styles.textStyle}></Text>
             </View>
             <View style={styles.detailsItem}>
                 <Text style={styles.heading}>Blood Group</Text>
-                <Text>{!profile.bloodgroup ? 'blood group':profile.bloodgroup}</Text>
+                <Text style={styles.textStyle}>{!profile.bloodgroup ? 'blood group':profile.bloodgroup}</Text>
             </View>
             <View style={styles.detailsItem}>
                 <Text style={styles.heading}>Father's Name</Text>
-                <Text>{profile.fathefirstname +(!profile.fatherlasttname ? "" :(" "+profile.fatherlasttname))}</Text>
+                <Text style={styles.textStyle}>{profile.fathefirstname +(!profile.fatherlasttname ? "" :(" "+profile.fatherlasttname))}</Text>
             </View>
             <View style={styles.detailsItem}>
                 <Text style={styles.heading}>Mother's Name</Text>
-                <Text>{profile.motherfirstname+ (!profile.motherlasttname ? "" : (" "+profile.motherlasttname))}</Text>
+                <Text style={styles.textStyle}>{profile.motherfirstname+ (!profile.motherlasttname ? "" : (" "+profile.motherlasttname))}</Text>
             </View>
             <View style={styles.detailsItem}>
                 <Text style={styles.heading}>Address</Text>
-                <Text>{(!profile.address1 ? "":profile.address1)+", "+(!profile.address2 ? "":profile.address2)}</Text>
+                <Text style={styles.textStyle}>{(!profile.address1 ? "":profile.address1)+", "+(!profile.address2 ? "":profile.address2)}</Text>
             </View>
         </View>
         </ScrollView>
@@ -80,27 +80,27 @@ const Profile = () => {
             <View style={styles.cardContainer}>
                 <View style={styles.card}>
                     <Text style={styles.cardHeading}>{profile.firstname +(!profile.lastname ? "" : (" "+profile.lastname))}</Text>
-                    <Text>{!profile.contactmobileno ? "mobile no" : profile.contactmobileno}</Text>
-                    <Text>{!profile.email ? "email" : profile.email}</Text>
+                    <Text style={styles.textStyle}>{!profile.contactmobileno ? "mobile no" : profile.contactmobileno}</Text>
+                    <Text style={styles.textStyle}>{!profile.email ? "email" : profile.email}</Text>
                 </View>
             </View>
         </View>
         <View style={[styles.sectionContainer, styles.detailsContainer]}>
             <View style={styles.detailsItem}>
                 <Text style={styles.heading}>Employee Code</Text>
-                <Text>{!profile.empcode ? "emp code":profile.empcode}</Text>
+                <Text style={styles.textStyle}>{!profile.empcode ? "emp code":profile.empcode}</Text>
             </View>
             <View style={styles.detailsItem}>
-            <Text style={styles.heading}>Department</Text>
-            <Text>{!profile.departmentname ? "department name" :profile.departmentname}</Text>
+              <Text style={styles.heading}>Department</Text>
+              <Text style={styles.textStyle}>{!profile.departmentname ? "department name" :profile.departmentname}</Text>
             </View>
             <View style={styles.detailsItem}>
-            <Text style={styles.heading}>DOB</Text>
-            <Text>{!profile.dob ? 'dob' :profile.dob}</Text>
+              <Text style={styles.heading}>DOB</Text>
+              <Text style={styles.textStyle}>{!profile.dob ? 'dob' :profile.dob}</Text>
             </View>
             <View style={styles.detailsItem}>
-            <Text style={styles.heading}>Address</Text>
-            <Text>{!profile.currentaddress? "address": profile.currentaddress}</Text>
+              <Text style={styles.heading}>Address</Text>
+              <Text style={styles.textStyle}>{!profile.currentaddress? "address": profile.currentaddress}</Text>
             </View>
         </View>
         </ScrollView>
@@ -153,7 +153,6 @@ const styles = StyleSheet.create({
     width: '70%',
     alignItems: 'center',
     justifyContent: 'center',
-    color:"#222222"
   },
   cardHeading: {
     fontSize: 24,
@@ -172,7 +171,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     fontSize:14,
     width: '100%',
-    color:"#222222"
   },
   heading: {
     fontSize: 16,
@@ -180,6 +178,9 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     color:"#222222"
   },
+  textStyle:{
+    color:"#222222"
+  }
 });
 
 export default Profile;

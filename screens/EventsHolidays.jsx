@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
 import moment from 'moment';
 
 const EventsHolidays = ({ data }) => {
+  console.log('data', data);
   const renderItem = ({ item }) => {
     return (
       <View style={styles.itemContainer}>
@@ -10,7 +11,7 @@ const EventsHolidays = ({ data }) => {
         <View style={styles.itemContent}>
           <Text style={styles.heading}>{item.remarks}</Text>
           <Text style={styles.dates}>
-            {moment(item.senddate).format('MMM D, YYYY')} - {moment(item.enddate).format('MMM D, YYYY')}
+            {moment(item.startdate).format('MMM D, YYYY')} - {moment(item.enddate).format('MMM D, YYYY')}
           </Text>
         </View>
       </View>
