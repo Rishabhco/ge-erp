@@ -6,5 +6,6 @@ export const screenIDConstant={
     COMM_TYPE_FOR_MOBILE:'6003_getcommtypelist',
     COMM_DETAIL_BYID: "6003_getcommdetailby_id",
     GET_HOLIDAYS: '6020_holidayAndEvents',
-    GET_STUDENT_EXAM_MARK: 'x_mob_StudentMarks'
+    GET_STUDENT_EXAM_MARK: 'x_mob_StudentMarks',
+    GET_BIRTHDAYS:'6020_birthdays'
 };

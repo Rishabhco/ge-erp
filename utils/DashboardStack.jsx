@@ -4,7 +4,7 @@ import Assessment from '../screens/Assessment';
 import Attendance from '../screens/Attendance';
 import StudentAttendance from '../screens/StudentAttendance';
 import Dashboard from '../screens/Dashboard';
-import BirthdayList from '../screens/BirthdayList';
+import BirthdayListTabs from './BirthdayListTabs';
 import StudentList from '../screens/StudentList';
 import ExaminationMarks from '../screens/ExaminationMarks';
 import CommunicationStack from './CommunicationStack';
@@ -73,7 +73,7 @@ export default function DashboardStack({ navigation}) {
             <Stack.Screen name="Events & Holidays" component={EventsAndHolidaysStack}/>
             <Stack.Screen name="News & Event Gallery" component={NewsAndEventsGalleryStack}/>
             <Stack.Screen name="Marks" component={Marks}/>
-            <Stack.Screen name="Birthday List" component={BirthdayList}/>
+            <Stack.Screen name="Birthday List" component={BirthdayListTabs}/>
             <Stack.Screen name="Student List" component={StudentList}/>
             <Stack.Screen name="Examination Marks" component={ExaminationMarks}/>
             <Stack.Screen name="About Us" component={AboutUs}/>
