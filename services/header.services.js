@@ -15,7 +15,6 @@ const headerServices =()=>{
             resolve(header);
         }).catch((error) => {
             reject(error);
-            console.log(error);
         });
     });
 }

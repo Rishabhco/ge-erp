@@ -23,7 +23,7 @@ const Profile = () => {
 
   return (
     userType=='Student'?
-    <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <View style={[styles.sectionContainer, styles.imageContainer]}>
             <Image style={styles.profileImage} source={require('../assets/user1.jpg')} resizeMode='cover'/>
         </View>
@@ -70,7 +70,7 @@ const Profile = () => {
                 <Text style={styles.textStyle}>{(!profile.address1 ? "":profile.address1)+", "+(!profile.address2 ? "":profile.address2)}</Text>
             </View>
         </View>
-        </ScrollView>
+      </ScrollView>
         : userType=='Teacher' ? 
         <ScrollView contentContainerStyle={styles.container}>
         <View style={[styles.sectionContainer, styles.imageContainer]}>

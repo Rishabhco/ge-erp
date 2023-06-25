@@ -7,5 +7,17 @@ export const screenIDConstant={
     COMM_DETAIL_BYID: "6003_getcommdetailby_id",
     GET_HOLIDAYS: '6020_holidayAndEvents',
     GET_STUDENT_EXAM_MARK: 'x_mob_StudentMarks',
-    GET_BIRTHDAYS:'6020_birthdays'
+    GET_BIRTHDAYS:'6020_birthdays',
+    CLASS_LIST:'x_classmaster_udr',
+    SECTION_LIST:'x_sectionmaster_udr',
+    GET_ALL_STUDENT: 'x_mob_AllStudenList',
+    UPLOAD_PROFILE_PHOTO: '6020_ProfileImgUpload',
+    STUDENT_CALENDAR_DAY_DETAIL: '6004_CalendarDayDetail',
+    STUDENT_ATTENDANCE_SUMMARY: "6000_StdAttSummary",
+    SAVE_STUDENT_ATTENDANCE: "3016",
+    GET_TEACHERS_CLASSES_COURSES: 'x_mob_teacherclassseccourse',
+    GET_EXAM_DETAILS_BY_COURSE: 'x_mob_examdetailbyclassseccourse',
+    GET_EXAM_MARKS: 'x_mob_exammarks',
+    GET_STUDENT_GRADES: 'x_mob_calculategrade',
+    SAVE_STUDENT_MARKS:'x_mob_manageexammarks',
 };

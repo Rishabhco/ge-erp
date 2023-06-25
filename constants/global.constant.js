@@ -32,3 +32,15 @@ export const UserTypeIdConstant = {
     Student: 38,
     Teacher: 37
 }
+
+export const FileUploadTypeEnum ={
+    SendSMSEmail : 1,
+    SendAsdsignment : 2,
+    SubmitAssignment : 3,
+    AssessmentAttach : 4,
+    TeacherAssignmentEvaluation : 5,
+    ELearning : 6,
+    AssessmentQuestionImage : 7,
+    ImageGallery : 8,
+    ImgProfile : 9
+}

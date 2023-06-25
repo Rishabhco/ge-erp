@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<body>
+
+	<div class="page">
+		<div class="container">
+			<div class="row mt-5">
+				<div class="col-md-12">
+					<div class="loginbox">
+						<div class="left">
+							<img id="SchooLogo" class="mx-auto d-block pt-4 mt-5 img-fluid" src="/img/erp-logo.png">
+							<div class="eula">Message will appear here...</div>
+						</div>
+						<div class="right">
+							<div class="py-1">
+								<img id="SchooLogo" class="mx-auto d-block school-logo" src="/UploadDocuments/SchoolLogo/School logo 1_20230403234147_0.jpg">
+								<h4 id="SchoolHeading" class="text-center">C L CONVENT SCHOOL</h4>
+							</div>
+							<div class="login-form pt-1 pl-5 pr-5 pb-3">
+								<div class="form-group">
+									<input class="form-control login-control" type="text" onkeydown = "if (event.keyCode == 13)
+                                        document.getElementById('btnLogin').click()" placeholder="User ID" id="txtEmail">
+                                </div>
+									<div class="form-group mt-3">
+										<input class="form-control login-control" onkeydown = "if (event.keyCode == 13)
+                                        document.getElementById('btnLogin').click()" type="Password" placeholder="Password" id="txtPassword">
+                                    </div>
+										<div class="form-group mt-3 text-center">
+											<button type="button" id="btnLogin" class="btn btn-info btn-login">Login</button>
+										</div>
+										<div class="form-group mt-2 float-right">
+											<a href="#" id="lnkForgotPassword" class="forget-pass mt-1">Forget Password?</a>
+										</div>
+										<div class="form-grou">
+											<span id="divErrorText" class="text-warning small d-none"></span>
+										</div>
+										<div class="Progressloading"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="container mt-5">
+					<div class="row  mt-2">
+						<div class="col-md-12">
+							<div class="d-flex justify-content-center">
+								<div class="mr-4">
+									<p class="text-secondary small pt-1">Copyright © 2022</p>
+								</div>
+								<div> 
+                                    <a href="#" class="float-right btn-payment-info payment-info" data-placement='top'
+										title="Payment Gateway Info"><i class="fa fa-info-circle mr-1 pt-2" aria-hidden="true"></i>
+										<span class="pt-1">Payment Gateway</span>
+                                    </a>
+                                </div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div id="popover_content_wrapper" style="display: none;">
+				<ul>
+					<li>Transaction fee charges would not be refunded/ reversed under any circumstances for any refund/
+						reversal /chargeback and any other reasons. </li>
+					<li>Transaction fees charged would be borne by cardholder for any payment. </li>
+					<li>T&C, contact us, entity legal name and other payment related polices are need to be update on
+						website. </li>
+					<li>Fees once paid which are non-refundable for any reason or any clause of GLOBAL EDU ERP LLP,
+						NOIDA PG. </li>
+					<li>Postal address need to be updated on website.</li>
+					<li>I Agree Check box for terms & condition and other payments terms before going to the payment
+						page. </li>
+					<li>Payments are processed through Atom technologies ltd, for more details visit-
+						https://www.atomtech.in. </li>
+				</ul>
+			</div>
+			<script>
+				$.getJSON('https://api.db-ip.com/v2/free/self', function (data) {
+            // sessionStorage.setItem('IP', data.ipAddress);
+            localStorage.setItem('IP', data.ipAddress)
+        });
+			</script>
+			<script type="text/javascript">
+				$(document).ready(function (){
+                    sessionStorage.clear();
+                    sessionStorage.setItem('Lang', "en")
+                    sessionStorage.setItem('ServiceURL', 'https://api.ge-erp.com/');
+                    $('#lnkClose').click(function () {$('#divError').hide('fade');});
+                    $('#btnLogin').click(function (){
+                        var email = $('#txtEmail').val();
+                        var existingUser = getWithExpiry('User');
+                        if (existingUser!=""){
+                            if (existingUser!=null&&existingUser!=email){
+                                alert(existingUser + " user is logged in. Please log out or try after 1 minute if user is logged out.");
+                                return;
+                            }
+                        }
+                        var password = $('#txtPassword').val();
+                        if(!email || email==''|| !password || password  ==''){
+                            $('#divErrorText').removeClass('d-none').text("Please enter your user name and password.");
+                            $('#divError').show('fade');
+                            return;
+                        }
+                        $(".transparentCover").show();
+                        $(".Progressloading").show();
+                        $.ajax({
+                            url: '/Security/UserSecurity/Token',
+                            method: 'POST',
+                            data: {
+                            username: email,
+                            password: password,
+                            grant_type: 'password'
+                        },
+                        success: function (response) {
+                            //$('#successModal').modal('show');
+                            if (response.status == null || response.status == false){
+                            $('#divErrorText').removeClass('d-none').text("The user name or password is incorrect.");
+                            $('#divError').show('fade');
+                            $(".Progressloading").hide();
+                        }
+                        else
+                        {
+                            if (response.status.IsDeactive == true) {
+                                alert("User has been Deactivated.")
+                                $('#divError').show('fade');
+                                $(".Progressloading").hide();
+                            }
+                            else {
+
+                                setWithExpiry('User',email, 60000);
+                                sessionStorage.setItem('accessToken', response.status.Access_Token)
+                                sessionStorage.setItem('userName', response.status.UserName)
+                                sessionStorage.setItem('refreshToken', response.status.Refresh_Token)
+                                sessionStorage.setItem('ASGMapping_Id', response.status.ASGMapping_Id)
+                                localStorage.setItem('ASGMapping_Id',  response.status.ASGMapping_Id)
+                                sessionStorage.setItem('UserId', response.status.Id)
+                                sessionStorage.setItem('CUserId', response.status.CUserId)
+                                localStorage.setItem('CUserId',  response.status.CUserId)
+                                sessionStorage.setItem('UserGroupId', response.status.UserGroupId)
+                                sessionStorage.setItem('MultiSchool', response.status.MultiSchool);
+                                sessionStorage.setItem('SgMapping_id', response.status.SgMapping_id);
+
+                               localStorage.setItem('SgMapping_id',  response.status.SgMapping_id)
+                                sessionStorage.setItem('SchoolGroupId', response.status.SchoolGroupId);
+                                sessionStorage.setItem('SchoolId', response.status.SchoolId);
+                                sessionStorage.setItem('StuStaffTypeId', response.status.StuStaffTypeId);
+                                localStorage.setItem('StuStaffTypeId',  response.status.StuStaffTypeId)
+                                sessionStorage.setItem('DisplayUserName', response.status.FirstName + ' ' + response.status.LastName);
+                                sessionStorage.setItem('ProfilePhoto', response.status.ProfilePhoto);
+                                sessionStorage.setItem('StuStaff_ID', response.status.StuStaff_ID);
+
+                                localStorage.setItem('StuStaff_ID',  response.status.CUserId)
+                                sessionStorage.setItem('UserTheme', response.status.UserTheme);
+
+                                 sessionStorage.setItem("SubMenuDropdown", JSON.stringify(response.status.NavigationMenuViewModelList));
+
+                                sessionStorage.setItem('MenuId',1);
+                                sessionStorage.setItem('MenuCode','100');
+
+
+                                SaveUserTrackDetails();
+
+
+
+                                if (response.status.StuStaffTypeId == 0)
+                                {
+                                    window.location.href = "/Assessment/UserAssessment/Dashboard";
+                                }
+                                else
+                                {
+                                    window.location.href = "/Admin/Login/Dashboard";
+                                }
+                            }
+                        }
+                    },
+                    error: function (jqXHR) {
+                        $('#divErrorText').removeClass('d-none').text(jqXHR.responseText);
+                        $('#divError').show('fade');
+                        $(".Progressloading").hide();
+                    }
+                });
+            });
+
+        $('#lnkForgotPassword').on('click',function(){
+            var email = $('#txtEmail').val();
+            if(!email || email == ''){
+                    $('#divErrorText').removeClass('d-none').text("Please enter your user name.");
+                    $('#divError').show('fade');
+                    return;
+            }
+
+            $.ajax({
+                url: '/Admin/Login/ForgotPassword',
+                type: 'POST',
+                data: { userName : email },
+                dataType: "json",
+                success: function (response) {
+                    $('#divErrorText').removeClass('d-none').text(response);
+                    $('#divError').show('fade');
+                },
+                error: function (error) {
+                    $('#divErrorText').removeClass('d-none').text(error);
+                    $('#divError').show('fade');
+                }
+            });
+        });
+        });
+
+        function setWithExpiry(key, value, ttl)
+        {
+            const now = new Date()
+
+            // `item` is an object which contains the original value
+            // as well as the time when it's supposed to expire
+            const item = {
+                value: value,
+                expiry: now.getTime() + ttl,
+            }
+            localStorage.setItem(key, JSON.stringify(item))
+        }
+        function getWithExpiry(key)
+        {
+            const itemStr = localStorage.getItem(key)
+            if (itemStr != null)
+            {
+                const item = JSON.parse(itemStr)
+
+
+                const now = new Date();
+
+                // compare the expiry time of the item with the current time
+                if (now.getTime() > item.expiry)
+                {
+                     localStorage.removeItem(key)
+                     return "";
+                }
+                else
+                {
+                    return item.value;
+                }
+            }
+            else
+            {
+                return "";
+            }
+
+        }
+    function SaveUserTrackDetails() {
+
+        var ip = "172.19.28.228";
+
+        returnData = $.parseJSON($.ajax({
+            type: 'POST',
+            url: '/Security/UserSecurity/Save',
+            dataType: "json",
+            data: {
+                UserID: sessionStorage.getItem('CUserId'),
+                IPAddress: ip.ip,
+                Action: 'Login',
+                SgMapping_id:sessionStorage.getItem('SgMapping_id'),
+                ASGMapping_Id:sessionStorage.getItem('ASGMapping_Id')
+            },
+            async: false,
+            success: function (response) {
+
+            },
+            error: function () {
+                alert(" An error occurred.4");
+            },
+        }).responseText);
+    }
+			</script>
+
+
+			<script>
+				$(document).ready(function () {
+
+            $('.payment-info').popover({
+                html: true,
+
+
+                content: function () {
+                    return $('#popover_content_wrapper').html();
+                }
+            });
+
+        });
+			</script>
+</body>
+
+</html>

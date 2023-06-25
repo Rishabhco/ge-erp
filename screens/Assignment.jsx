@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, FlatList, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import { getAssignments } from '../services/assignment.services';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import moment from 'moment';

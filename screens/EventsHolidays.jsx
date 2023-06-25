@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
 import moment from 'moment';
 
 const EventsHolidays = ({ data }) => {
-  console.log('data', data);
   const renderItem = ({ item }) => {
     return (
       <View style={styles.itemContainer}>

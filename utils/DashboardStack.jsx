@@ -5,12 +5,12 @@ import Attendance from '../screens/Attendance';
 import StudentAttendance from '../screens/StudentAttendance';
 import Dashboard from '../screens/Dashboard';
 import BirthdayListTabs from './BirthdayListTabs';
-import StudentList from '../screens/StudentList';
+import StudentListStack from './StudentListStack';
 import ExaminationMarks from '../screens/ExaminationMarks';
 import CommunicationStack from './CommunicationStack';
 import AssignmentStack from './AssignmentStack';
 import Reports from '../screens/Reports';
-import Calendar from '../screens/Calendar';
+import Calendars from '../screens/Calendar';
 import Marks from '../screens/Marks';
 import AboutUs from '../screens/AboutUs';
 import EventsAndHolidaysStack from './EventsAndHolidaysStack';
@@ -69,12 +69,12 @@ export default function DashboardStack({ navigation}) {
             <Stack.Screen name="Reports" component={Reports}/>
             <Stack.Screen name="TimeTable" component={TimeTable} />
             <Stack.Screen name="Assessment" component={Assessment}/>
-            <Stack.Screen name="Calendar" component={Calendar}/>
+            <Stack.Screen name="Calendar" component={Calendars}/>
             <Stack.Screen name="Events & Holidays" component={EventsAndHolidaysStack}/>
             <Stack.Screen name="News & Event Gallery" component={NewsAndEventsGalleryStack}/>
             <Stack.Screen name="Marks" component={Marks}/>
             <Stack.Screen name="Birthday List" component={BirthdayListTabs}/>
-            <Stack.Screen name="Student List" component={StudentList}/>
+            <Stack.Screen name="Student List" component={StudentListStack} options={{headerShown:false }}/>
             <Stack.Screen name="Examination Marks" component={ExaminationMarks}/>
             <Stack.Screen name="About Us" component={AboutUs}/>
         </Stack.Navigator>
