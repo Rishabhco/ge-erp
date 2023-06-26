@@ -43,6 +43,7 @@ const SendCommunication = ({navigation}) => {
 
     const handleChangeTo = (itemValue) => {
         setTo(itemValue);
+        if(itemValue == '2'){ setFilteredStudents(studentsList);}
         setSelectedName([]);
     };
 
@@ -84,6 +85,7 @@ const SendCommunication = ({navigation}) => {
             let files = [];
             let totalFiles = attachment.length;
             let uploadedFiles = 0;
+            setUploadProgress({ current: uploadedFiles, total: totalFiles });
             for (const item of attachment) {
               const res = await upload(item[0], FileUploadTypeEnum.SendSMSEmail);
               files.push(res);
@@ -109,7 +111,7 @@ const SendCommunication = ({navigation}) => {
             sendCommunication(sendData).then(res => {
                 Alert.alert('Communication sent successfully.');
                 setTimeout(() => {
-                    navigation.navigate('Communications');
+                    navigation.navigate('Home');
                 }, 1000);
             }).catch(err => {
                 console.log(err.response)
@@ -205,6 +207,7 @@ const SendCommunication = ({navigation}) => {
                         style={styles.subInput}
                         placeholder="Subject"
                         value={subject}
+                        placeholderTextColor={'gray'}
                         onChangeText={(value) => setSubject(value)}
                     />
                 </View>
@@ -216,12 +219,13 @@ const SendCommunication = ({navigation}) => {
                         multiline
                         numberOfLines={4}
                         value={message}
+                        placeholderTextColor={'gray'}
                         onChangeText={(value) => setMessage(value)}
                         textAlignVertical="top"
                     />
                 </View>
                 <TouchableOpacity style={styles.attachmentContainer} onPress={handleFileSelection}>
-                    <Text>Select Attachment</Text>
+                    <Text style={styles.attachmentText}>Select Attachment</Text>
                 </TouchableOpacity>
                 {attachment.length > 0 ? (
                     attachment.map((item, index) => (
@@ -319,6 +323,7 @@ const styles = StyleSheet.create({
         borderColor: '#ccc',
         borderRadius: 4,
         paddingHorizontal: 8,
+        color:"gray"
     },
     msgInput: {
         width: '100%',
@@ -327,6 +332,7 @@ const styles = StyleSheet.create({
         borderColor: '#ccc',
         borderRadius: 4,
         paddingHorizontal: 8,
+        color:"gray"
     },
     attachmentContainer: {
         height: 40,
@@ -361,6 +367,7 @@ const styles = StyleSheet.create({
     attachmentText: {
         flex: 1,
         marginRight: 8,
+        color:"gray"
     },
     modalContainer: {
         backgroundColor: '#FFF',
@@ -370,6 +377,7 @@ const styles = StyleSheet.create({
     },
     modalText: {
         marginBottom: 10,
+        color:"gray"
     },
 });
 

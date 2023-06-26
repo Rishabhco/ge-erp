@@ -54,7 +54,6 @@ const CommunicationDetail = ({ route }) => {
         }else {
           console.log('Error','Storage Permission Not Granted');
         }
-        // downloadFile(filePath,fileName);
       } catch (err) {
         console.log("++++"+err);
       }
