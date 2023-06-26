@@ -43,6 +43,8 @@ const Login = ({ navigation }) => {
                   setErrorMessage("Teacher Details not found");
                 });
               }
+            }else{
+              setErrorMessage('Something Went Wrong');
             }
           }).catch((error) => {
             if(error.response.status === 400)
@@ -54,8 +56,12 @@ const Login = ({ navigation }) => {
           setErrorMessage('School Code is not valid');
         }
       }).catch((error) => {
+        console.log(error);
         if(error.response.status === 400)
           setErrorMessage(error.response.data.error_description);
+        else
+          setErrorMessage(error.response); 
+
       });
     }
   };

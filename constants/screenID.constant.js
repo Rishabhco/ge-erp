@@ -20,4 +20,9 @@ export const screenIDConstant={
     GET_EXAM_MARKS: 'x_mob_exammarks',
     GET_STUDENT_GRADES: 'x_mob_calculategrade',
     SAVE_STUDENT_MARKS:'x_mob_manageexammarks',
+    GET_CLASS_DATA_FOR_COMMUNICATION:'x_mob_ClassesByEmpId',
+    GET_COMMUNICATION_TYPE_BY_ID:'6021_CommTypeMaster',
+    GET_STUDENT_LIST_FOR_COMMUNICATION:'x_mob_studentlist',
+    GET_EMPLOYEE_LIST_FOR_COMMUNICATION:'x_mob_employeelist',
+    SEND_COMMUNICATION:'6021_SendCommunication',
 };

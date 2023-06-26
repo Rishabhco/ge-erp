@@ -119,7 +119,7 @@ const BirthdayList = ({ name }) => {
       <View style={styles.card}>
         <View style={styles.cardContent}>
           {birthdays.length === 0 ? (
-            <Text>No data found</Text>
+            <Text style={{color:'gray'}}>No data found</Text>
           ) : (
             birthdays.map((item, index) => (
               <Fragment key={index}>

@@ -119,7 +119,7 @@ const StudentList = ({ navigation }) => {
           <View style={styles.dropdownContainer}>
             <Picker
               selectedValue={selectedClass}
-              style={styles.dropdown}
+              style={styles.dropdown} dropdownIconColor='gray' dropdownRippleColor='gray'
               onValueChange={(itemValue) => setSelectedClass(itemValue)}
             >
               <Picker.Item label="Select Class" value="" />
@@ -138,7 +138,7 @@ const StudentList = ({ navigation }) => {
           <View style={styles.dropdownContainer}>
             <Picker
               selectedValue={selectedSection}
-              style={styles.dropdown}
+              style={styles.dropdown} dropdownIconColor='gray' dropdownRippleColor='gray'
               onValueChange={(itemValue) => setSelectedSection(itemValue)}
             >
               <Picker.Item label="Select Section" value="" />
@@ -224,6 +224,7 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 4,
+    color:'gray'
   },
   statsContainer: {
     flexDirection: 'row',

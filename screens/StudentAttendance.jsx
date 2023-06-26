@@ -162,7 +162,9 @@ const StudentAttendance = () => {
                     <View style={styles.row}>
                         <Text style={styles.cardHeading}>Class</Text>
                         <View style={styles.dropdownContainer}>
-                            <Picker selectedValue={selectedClass} style={styles.dropdown} onValueChange={itemValue => setSelectedClass(itemValue)}>
+                            <Picker selectedValue={selectedClass} style={styles.dropdown} onValueChange={itemValue => setSelectedClass(itemValue)}
+                                dropdownIconColor='gray' dropdownRippleColor='gray'
+                            >
                                 <Picker.Item label="Select Class" value="" />
                                 {classList.map(classItem => (
                                     <Picker.Item label={classItem.displayname} value={classItem.id} key={classItem.id} />
@@ -173,7 +175,9 @@ const StudentAttendance = () => {
                     <View style={styles.row}>
                         <Text style={styles.cardHeading}>Section</Text>
                         <View style={styles.dropdownContainer}>
-                            <Picker selectedValue={selectedSection} style={styles.dropdown} onValueChange={itemValue => setSelectedSection(itemValue)}>
+                            <Picker selectedValue={selectedSection} style={styles.dropdown} onValueChange={itemValue => setSelectedSection(itemValue)}
+                                dropdownIconColor='gray' dropdownRippleColor='gray'
+                            >
                                 <Picker.Item label="Select Section" value="" />
                                 {sectionList.map(section => (
                                     <Picker.Item label={section.displayname} value={section.id} key={section.id} />
@@ -299,6 +303,7 @@ const styles = StyleSheet.create({
         borderColor: '#ccc',
         borderWidth: 1,
         borderRadius: 4,
+        color:'gray'
     },
     datePicker: {
         flex: 1,

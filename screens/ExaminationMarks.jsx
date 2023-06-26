@@ -196,14 +196,18 @@ const ExaminationMarks = () => {
                 <View style={styles.card}>
                     <View style={styles.row}>
                         <Text style={styles.label}>Class</Text>
-                        <Picker selectedValue={selectedClass} style={styles.dropdown} onValueChange={handleClassSelection}>
+                        <Picker selectedValue={selectedClass} style={styles.dropdown} onValueChange={handleClassSelection} 
+                            dropdownIconColor='gray' dropdownRippleColor='gray'
+                        >
                             <Picker.Item label="Select Class" value="" />
                             {classList.map((classItem) => (
                                 <Picker.Item label={classItem.class} value={classItem.classmaster_id} key={classItem.classmaster_id} />
                             ))}
                         </Picker>
                         <Text style={styles.label}>Section</Text>
-                        <Picker selectedValue={selectedSection} style={styles.dropdown} onValueChange={handleSectionSelection}>
+                        <Picker selectedValue={selectedSection} style={styles.dropdown} onValueChange={handleSectionSelection}
+                            dropdownIconColor='gray' dropdownRippleColor='gray'
+                        >
                             <Picker.Item label="Select Section" value="" />
                             {sectionList.map((section) => (
                                 <Picker.Item label={section.section} value={section.sectionmaster_id} key={section.sectionmaster_id} />
@@ -212,14 +216,18 @@ const ExaminationMarks = () => {
                     </View>
                     <View style={styles.row}>
                         <Text style={styles.label}>Course</Text>
-                        <Picker selectedValue={selectedCourse} style={styles.dropdown} onValueChange={handleCourseSelection}>
+                        <Picker selectedValue={selectedCourse} style={styles.dropdown} onValueChange={handleCourseSelection} 
+                            dropdownIconColor='gray' dropdownRippleColor='gray'
+                        >
                             <Picker.Item label="Select Course" value="" />
                             {courseList.map((course) => (
                                 <Picker.Item label={course.course} value={course.coursemaster_id} key={course.coursemaster_id} />
                             ))}
                         </Picker>
                         <Text style={styles.label}>Exam</Text>
-                        <Picker selectedValue={selectedExam} style={styles.dropdown} onValueChange={handleExamSelection}>
+                        <Picker selectedValue={selectedExam} style={styles.dropdown} onValueChange={handleExamSelection}
+                            dropdownIconColor='gray' dropdownRippleColor='gray'
+                        >
                             <Picker.Item label="Select Exam" value="" />
                             {examList.map((exam) => (
                                 <Picker.Item label={exam.examname} value={exam.exam_id} key={exam.exam_id} />
@@ -315,6 +323,7 @@ const styles = StyleSheet.create({
         borderColor: '#ccc',
         borderWidth: 1,
         borderRadius: 4,
+        color:'gray',
     },
     statsContainer: {
         flexDirection: 'row',
@@ -401,6 +410,7 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         padding: 8,
         width: '70%',
+        color: 'gray',
     },
 });
 

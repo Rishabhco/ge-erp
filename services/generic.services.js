@@ -93,13 +93,11 @@ const uploadFile=async(body)=>{
                     'Content-Type':'multipart/form-data'
                 }
             }).then(async (response)=>{
-                console.log("uploadfile res:", response);
                 resolve(response);
             }).catch(error=>{
                 console.log(error);
                 if(axios.isAxiosError(error)){
-                    console.log("uploadfile err:", error.ErrorMessage);
-                    console.log("uploadfile err:", error.StatusCode);
+                    console.log(error);
                 }
                 reject(error);
             })
