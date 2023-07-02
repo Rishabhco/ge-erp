@@ -1,21 +1,20 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { defaultAuthDetail } from "../constants/global.constant";
+import {getLoginDetails} from  "../helper/auth.helper"
 
 const headerServices =()=>{
-    return new Promise((resolve,reject)=>{
+    return new Promise(async(resolve,reject)=>{
         let header={};
-        AsyncStorage.getItem('loginDetails').then((value) => {
-            header.Authorization=JSON.parse(value).access_token;
-            header.ASGMapping_Id=JSON.parse(value).ASGMapping_Id;
+        const loginDetails = await getLoginDetails();
+            header.Authorization=loginDetails.access_token;
+            header.ASGMapping_Id=loginDetails.ASGMapping_Id;
             header.MenuId=defaultAuthDetail.MenuID;
-            header.CUserId=JSON.parse(value).CUserId;
-            header.SgMapping_id=JSON.parse(value).SgMapping_id;
-            header.StuStaffTypeId=JSON.parse(value).StuStaffTypeId;
-            header.StuStaff_ID=JSON.parse(value).StuStaff_ID;
+            header.CUserId=loginDetails.CUserId;
+            header.SgMapping_id=loginDetails.SgMapping_id;
+            header.StuStaffTypeId=loginDetails.StuStaffTypeId;
+            header.StuStaff_ID=loginDetails.StuStaff_ID;
             resolve(header);
-        }).catch((error) => {
+    }).catch((error) => {
             reject(error);
-        });
     });
 }
 

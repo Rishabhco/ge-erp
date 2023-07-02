@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { screenIDConstant } from "../constants/screenID.constant"
 import { getRecords,performDataOperation } from "./generic.services"
+import {getLoginDetails} from  "../helper/auth.helper"
 
 const getAllClassesAndSections = async () => {
     return new Promise((resolve, reject) => {
@@ -72,11 +73,11 @@ const getStudentsData=async(classID,sectionID,courseID,examID)=>{
 }
 
 const getStudentGrade=async(examID,courseID,marks)=>{
-    return new Promise((resolve, reject) => {
-        AsyncStorage.getItem('loginDetails').then(res=>{
+    return new Promise(async(resolve, reject) => {
+        const loginDetails=await getLoginDetails();
             const model={
                 screenID:screenIDConstant.GET_STUDENT_GRADES,
-                sgMapping_id :Number(JSON.parse(res).SgMapping_id),
+                sgMapping_id :Number(loginDetails.SgMapping_id),
                 indexScreenSearchParameterModel:[{
                     searchParameter:"Exam_Id",
                     searchParameterDataType:"int",
@@ -96,7 +97,6 @@ const getStudentGrade=async(examID,courseID,marks)=>{
             }).catch(err=>{
                 reject(err);
             });
-        })
     })
 }
 

@@ -2,20 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { UserTypeConstant } from '../constants/userType.constant';
+import {getLoginDetails} from '../helper/auth.helper';
 
 const Profile = () => {
   const [userType, setUserType] = useState('');
   const [profile, setProfile] = useState({});
 
   useEffect(() => {
-    AsyncStorage.getItem('loginDetails').then((response) => {
-      if (JSON.parse(response).StuStaffTypeId == UserTypeConstant.Student) {
+    async function getLoginDetail() {
+    const loginDetails = await getLoginDetails();
+      if (loginDetails.StuStaffTypeId == UserTypeConstant.Student) {
         setUserType('Student');
       }
-      if (JSON.parse(response).StuStaffTypeId == UserTypeConstant.Teacher) {
+      if (loginDetails.StuStaffTypeId == UserTypeConstant.Teacher) {
         setUserType('Teacher');
       }
-    });
+    };
+    getLoginDetail();
     AsyncStorage.getItem('Profile').then((response) => {
       setProfile(JSON.parse(response));
     })

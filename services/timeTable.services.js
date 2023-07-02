@@ -1,6 +1,7 @@
 import AsyncStorage  from "@react-native-async-storage/async-storage";
 import { menuCodeConstant } from "../constants/menuCode.constant";
 import { getRecords } from "./generic.services";
+import {getLoginDetails} from  "../helper/auth.helper"
 
 const getStudentTimeTable=async()=>{
     return new Promise((resolve,reject)=>{
@@ -27,14 +28,14 @@ const getStudentTimeTable=async()=>{
 };
 
 const getTeacherTimeTable=async()=>{
-    return new Promise((resolve,reject)=>{
-        AsyncStorage.getItem('loginDetails').then((loginDetails)=>{
+    return new Promise(async(resolve,reject)=>{
+        const loginDetails=await getLoginDetails();
             const model={
                 screenID:menuCodeConstant.TEACHER_TIME_TABLE,
                 indexScreenSearchParameterModel:[{
                     searchParameter: "employee_id",
                     searchParameterDataType: "int",
-                    searchParameterValue: JSON.parse(loginDetails).StuStaff_ID
+                    searchParameterValue: loginDetails.StuStaff_ID
                 }]
             }
             getRecords(model).then((res)=>{
@@ -42,7 +43,6 @@ const getTeacherTimeTable=async()=>{
             }).catch((err)=>{
                 reject(err);
             })
-        })
     })
 }
 

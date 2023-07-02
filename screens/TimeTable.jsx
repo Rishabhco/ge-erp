@@ -5,6 +5,7 @@ import { Picker } from '@react-native-picker/picker';
 import { dayConstant } from '../constants/day.constant';
 import { UserTypeConstant } from '../constants/userType.constant';
 import { getStudentTimeTable, getTeacherTimeTable } from '../services/timeTable.services';
+import {getLoginDetails} from '../helper/auth.helper';
 
 const TimeTable = () => {
   const [data, setData] = useState([]);
@@ -20,11 +21,9 @@ const TimeTable = () => {
     { id: 7, name: 'Sunday' },
   ];
 
-  useEffect(() => {
-    AsyncStorage.getItem('loginDetails')
-      .then((response) => {
-        const { StuStaffTypeId } = JSON.parse(response);
-        if (StuStaffTypeId == UserTypeConstant.Student) {
+  useEffect(async() => {
+    const loginDetails=await getLoginDetails();
+        if (loginDetails.StuStaffTypeId == UserTypeConstant.Student) {
           getStudentTimeTable()
             .then((res) => {
               setData(res);
@@ -34,7 +33,7 @@ const TimeTable = () => {
               console.log(err);
             });
         }
-        if (StuStaffTypeId == UserTypeConstant.Teacher) {
+        if (loginDetails.StuStaffTypeId == UserTypeConstant.Teacher) {
           getTeacherTimeTable()
             .then((res) => {
               setData(res);
@@ -44,10 +43,6 @@ const TimeTable = () => {
               console.log(err);
             });
         }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   }, []);
 
   const handleDayChange = (selectedDayId) => {

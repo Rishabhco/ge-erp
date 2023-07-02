@@ -3,6 +3,7 @@ import React, { useEffect,useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { UserTypeConstant } from '../constants/userType.constant';
 import { sOptions, tOptions } from '../constants/dashboardOptions.constant';
+import {getLoginDetails} from '../helper/auth.helper';
 
 const Dashboard = ({navigation}) => {
   const handlePress = (name) => () => {
@@ -13,22 +14,24 @@ const Dashboard = ({navigation}) => {
   const [subtitle,setsubtitle]=useState("");
 
   useEffect(()=>{
-    AsyncStorage.getItem('loginDetails').then((response)=>{
-      if(JSON.parse(response).StuStaffTypeId==UserTypeConstant.Student){
-        setOptions(sOptions);
-        AsyncStorage.getItem('Profile').then((response)=>{
-          setName(JSON.parse(response).studentname);
-          setsubtitle(JSON.parse(response).classname+" "+JSON.parse(response).sectionname);
-        })
-      }
-      if(JSON.parse(response).StuStaffTypeId==UserTypeConstant.Teacher){
-        setOptions(tOptions);
-        AsyncStorage.getItem('Profile').then((response)=>{
-          setName(JSON.parse(response).firstname+" "+JSON.parse(response).lastname);
-          setsubtitle(JSON.parse(response).departmentname);
-        })
-      }
-    })
+    async function getLoginDetail(){
+      const loginDetails=await getLoginDetails();
+        if(loginDetails.StuStaffTypeId==UserTypeConstant.Student){
+          setOptions(sOptions);
+          AsyncStorage.getItem('Profile').then((response)=>{
+            setName(JSON.parse(response).studentname);
+            setsubtitle(JSON.parse(response).classname+" "+JSON.parse(response).sectionname);
+          })
+        }
+        if(loginDetails.StuStaffTypeId==UserTypeConstant.Teacher){
+          setOptions(tOptions);
+          AsyncStorage.getItem('Profile').then((response)=>{
+            setName(JSON.parse(response).firstname+" "+JSON.parse(response).lastname);
+            setsubtitle(JSON.parse(response).departmentname);
+          })
+        }
+    };
+    getLoginDetail();
   },[]);
 
   return (

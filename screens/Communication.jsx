@@ -2,8 +2,8 @@ import React, { useEffect, useState, Fragment } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { UserTypeConstant } from '../constants/userType.constant';
+import {getLoginDetails} from '../helper/auth.helper';
 
 const CommunicationItem = ({ item, tabIcon, navigation }) => {
   const { commsubject, sentby, senddate } = item;
@@ -32,11 +32,13 @@ const Communication = ({ filterComm, tabIcon, navigation }) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    AsyncStorage.getItem('loginDetails').then((response) => {
-      if (JSON.parse(response).StuStaffTypeId == UserTypeConstant.Teacher) {
+    async function getLoginDetail() {
+      const loginDetails=await getLoginDetails();
+      if (loginDetails.StuStaffTypeId == UserTypeConstant.Teacher) {
         setVisible(true);
       }
-    });
+    };
+    getLoginDetail();
   }, [filterComm]);
 
   return (
