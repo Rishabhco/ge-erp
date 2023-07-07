@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { Text } from 'react-native';
+import { Text,BackHandler} from 'react-native';
 import { getCommType, getCommunication } from '../services/communication.services';
 import Communication from '../screens/Communication';
 
@@ -23,6 +23,14 @@ function CommunicationTabs({navigation}) {
     }).catch((err) => {
       console.log(err);
     });
+    const handleBackPress = () => {
+      navigation.goBack();
+      return true;
+    };
+    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+    };
   }, []);
 
   useEffect(() => {

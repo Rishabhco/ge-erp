@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, FlatList } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, FlatList,BackHandler } from 'react-native';
 import { getAssignments } from '../services/assignment.services';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import moment from 'moment';
@@ -37,6 +37,14 @@ const Assignment = ({navigation}) => {
         }).catch((err) => {
             console.log(err);
         });
+        const handleBackPress = () => {
+          navigation.goBack();
+          return true;
+        };
+        BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+        return () => {
+          BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+        };
     }, []);
 
     useEffect(() => {

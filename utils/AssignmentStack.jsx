@@ -4,7 +4,7 @@ import AssignmentDetail from '../screens/AssignmentDetail';
 
 const Stack = createStackNavigator();
 
-export default function AssignmentStack({ navigation}) {
+export default function AssignmentStack() {
     return (
         <Stack.Navigator initialRouteName='Assignments' screenOptions={{
             headerShown: true,

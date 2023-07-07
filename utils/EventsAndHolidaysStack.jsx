@@ -1,38 +1,48 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import EventsHolidays from '../screens/EventsHolidays';
 import { useEffect ,useState} from 'react';
+import { BackHandler } from 'react-native';
 import { SysMaster,UserTypeIdConstant } from '../constants/global.constant';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {getLoginDetails} from '../helper/auth.helper';
 import { getEmpHolidayList, getStuHolidayList } from '../services/eventHolidays.services';
 
 const Tab = createMaterialTopTabNavigator();
 
-function EventsAndHolidaysStack() {
+function EventsAndHolidaysStack({navigation}) {
 
   const [holidaysData, setHolidaysData] = useState([]);
   const [eventsData, setEventsData] = useState([]);
 
 
   useEffect(() => {
-    AsyncStorage.getItem('loginDetails').then((res)=>{
-      const data = JSON.parse(res);
-      if(Number.parseInt(data.StuStaffTypeId)== UserTypeIdConstant.Student){
-        getStuHolidayList().then((res)=>{
-          setHolidaysData(res.filter((x) => x.calendartype_id === SysMaster.Holiday));
-          setEventsData(res.filter((x) => x.calendartype_id === SysMaster.Event));
+    async function getLoginDetail(){
+      const res=await getLoginDetails();
+      if(Number.parseInt(res.StuStaffTypeId)== UserTypeIdConstant.Student){
+        getStuHolidayList().then((response)=>{
+          setHolidaysData(response.filter((x) => x.calendartype_id === SysMaster.Holiday));
+          setEventsData(response.filter((x) => x.calendartype_id === SysMaster.Event));
         }).catch((err)=>{
           console.log(err);
         });
       }
-      if(Number.parseInt(data.StuStaffTypeId)== UserTypeIdConstant.Teacher){
-        getEmpHolidayList().then((res)=>{
-          setHolidaysData(res.filter((x) => x.calendartype_id === SysMaster.Holiday));
-          setEventsData(res.filter((x) => x.calendartype_id === SysMaster.Event));
+      if(Number.parseInt(res.StuStaffTypeId)== UserTypeIdConstant.Teacher){
+        getEmpHolidayList().then((response)=>{
+          setHolidaysData(response.filter((x) => x.calendartype_id === SysMaster.Holiday));
+          setEventsData(response.filter((x) => x.calendartype_id === SysMaster.Event));
         }).catch((err)=>{
           console.log(err);
         });
       }
-    })
+    }
+    getLoginDetail();
+    const handleBackPress = () => {
+      navigation.goBack();
+      return true;
+    };
+    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+    };
   }, []);
 
   return (

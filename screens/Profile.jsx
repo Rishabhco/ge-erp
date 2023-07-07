@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView,BackHandler } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { UserTypeConstant } from '../constants/userType.constant';
 import {getLoginDetails} from '../helper/auth.helper';
 
-const Profile = () => {
+const Profile = ({navigation}) => {
   const [userType, setUserType] = useState('');
   const [profile, setProfile] = useState({});
 
@@ -22,6 +22,12 @@ const Profile = () => {
     AsyncStorage.getItem('Profile').then((response) => {
       setProfile(JSON.parse(response));
     })
+    const handleBackPress = () => {
+      navigation.goBack();
+      return true;
+    };
+    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+    return () => { BackHandler.removeEventListener('hardwareBackPress', handleBackPress);};
   }, []);
 
   return (

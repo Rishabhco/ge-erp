@@ -1,9 +1,9 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, Alert,BackHandler } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { getAllClassesAndSections, getExamsData, getStudentsData, getStudentGrade, saveMarks} from '../services/exam.services';
 
-const ExaminationMarks = () => {
+const ExaminationMarks = ({navigation}) => {
     const [classSectionData, setClassSectionData] = useState([]);
 
     const [selectedClass, setSelectedClass] = useState('');
@@ -26,6 +26,17 @@ const ExaminationMarks = () => {
     });
 
     const [studentsList, setStudentsList] = useState([]);
+    
+    useEffect(() => {
+        const handleBackPress = () => {
+            navigation.goBack();
+            return true;
+        };
+        BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+        return () => {
+            BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+        };
+    }, []);
 
     useEffect(() => {
         getAllClassesAndSections().then((res) => {
@@ -37,6 +48,7 @@ const ExaminationMarks = () => {
             console.log(err);
         });
     }, []);
+    
 
     useEffect(() => {
         if (selectedClass) {

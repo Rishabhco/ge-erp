@@ -1,11 +1,11 @@
 import moment from 'moment';
 import React,{useEffect,useState} from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet,BackHandler} from 'react-native';
 import {getAllCalendarDetail,getCalendarDetailByDate} from '../services/calendar.services';
 import { Calendar } from 'react-native-calendars';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Calendars = () => {
+const Calendars = ({navigation}) => {
     const [min,setMin]=useState(null);
     const [max,setMax]=useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
@@ -24,6 +24,14 @@ const Calendars = () => {
         const currentDate=moment(new Date(date.getFullYear(), date.getMonth(), date.getDate())).format('MM/DD/YY');
         setSelectedDate(moment(new Date(date.getFullYear(), date.getMonth(), date.getDate())).format('YYYY-MM-DD'));
         getCalendarDayDetails(currentDate);
+        const handleBackPress = () => {
+            navigation.goBack();
+            return true;
+          };
+          BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+          return () => {
+            BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+          };
     },[]);
 
     const handleDayPress=(day)=>{

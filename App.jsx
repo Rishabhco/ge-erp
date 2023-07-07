@@ -1,14 +1,18 @@
 import React, { useState,useEffect } from 'react';
+import { Alert,BackHandler } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
 import 'react-native-reanimated';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import messaging from '@react-native-firebase/messaging';
 
 import Login from './screens/Login';
 import MainTabs from './utils/MainTabs';
 import SignUp from './screens/SignUp';
 import ForgotPassword from './screens/ForgotPassword';
+import NotificationController from './NotificationController.android';
+
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -16,6 +20,10 @@ const App = () => {
   
   useEffect(() => {
     checkLoggedIn();
+    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+    };
   }, []);
 
   const checkLoggedIn = async () => {
@@ -23,8 +31,17 @@ const App = () => {
     setIsLoggedIn(isLoggedIn);
   };
 
+  const handleBackPress = () => {
+    if(!isLoggedIn) {
+      BackHandler.exitApp();
+      return true;
+    }
+    return false;
+  };
+
   return (
     <NavigationContainer independent={true}>
+      {/* <NotificationController/> */}
       <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={isLoggedIn?'MainTabs':'Login'}>
         <Stack.Screen name="MainTabs" component={MainTabs}/>
         <Stack.Screen name="Login" component={Login}/>

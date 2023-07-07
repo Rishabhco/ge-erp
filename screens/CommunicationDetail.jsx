@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity,Linking,PermissionsAndroid,Platform } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity,Linking,PermissionsAndroid,Platform,BackHandler} from 'react-native';
 import { getCommunicationDetail } from '../services/communication.services';
 import moment from 'moment';
 import { getFileName } from '../helper/utility.helper.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import RNFetchBlob from 'rn-fetch-blob';
+const MAX_FILENAME_LENGTH = 20;
 
-const CommunicationDetail = ({ route }) => {
+const CommunicationDetail = ({ route ,navigation}) => {
   const [details, setDetails] = useState({});
   const [attachment, setAttachment] = useState([]);
 
@@ -29,6 +30,15 @@ const CommunicationDetail = ({ route }) => {
       }).catch((err) => {
         console.log(err);
       });
+
+      const handleBackPress = () => {
+        navigation.goBack();
+        return true;
+      };
+      BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+      return () => {
+        BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+      };
   }, [route.params.id]);
 
   const handleIconPress = (filePath,action,fileName) => {
@@ -81,6 +91,14 @@ const CommunicationDetail = ({ route }) => {
     });
   };
 
+  const getShortenedFileName = (fileName) => {
+    if (fileName.length > MAX_FILENAME_LENGTH) {
+      const shortenedName = fileName.substring(0, MAX_FILENAME_LENGTH - 3) + '...';
+      return shortenedName;
+    }
+    return fileName;
+  };
+
   return (
     <View style={styles.container}>
       {details ? (
@@ -94,7 +112,7 @@ const CommunicationDetail = ({ route }) => {
           {attachment.length > 0 &&
             attachment.map((item, index) => (
               <View key={index} style={styles.attachmentContainer}>
-                <Text style={styles.fileName}>{item.fileName}</Text>
+                <Text style={styles.fileName}>{getShortenedFileName(item.fileName)}</Text>
                 <View style={styles.iconsContainer}>
                   <TouchableOpacity onPress={() => handleIconPress(item.filepath,'download',item.fileName)}>
                     <Icon name="download" size={16} style={styles.icon} />
@@ -165,6 +183,7 @@ const styles = StyleSheet.create({
       fontSize: 16,
       marginRight: 10,
       color: '#233698',
+      maxWidth: '70%',
     },
     iconsContainer: {
       flexDirection: 'row',

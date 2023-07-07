@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity,Linking,PermissionsAndroid,Platform } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity,Linking,PermissionsAndroid,Platform,BackHandler} from 'react-native';
 import { getAssignmentDetailByID } from '../services/assignment.services';
 import moment from 'moment';
 import { getFileName } from '../helper/utility.helper.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import RNFetchBlob from 'rn-fetch-blob';
 
-const AssignmentDetail = ({ route }) => {
+const AssignmentDetail = ({ route,navigation }) => {
   const [assignment, setAssignment] = useState({});
   const [attachment, setAttachment] = useState([]);
 
@@ -29,6 +29,14 @@ const AssignmentDetail = ({ route }) => {
       }).catch((err) => {
         console.log(err);
       });
+      const handleBackPress = () => {
+        navigation.goBack();
+        return true;
+      };
+      BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+      return () => {
+        BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+      };
   }, [route.params.id]);
 
   const handleIconPress = (filePath,action,fileName) => {

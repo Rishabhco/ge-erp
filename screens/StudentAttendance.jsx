@@ -1,13 +1,13 @@
 import moment from 'moment';
 import React, { useState, useEffect, Fragment } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Button, Switch, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Button, Switch, Alert,BackHandler} from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { getClasses, getSections } from '../services/class.services';
 import { getAttendanceStudentList,saveAttendance } from '../services/attendance.services';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DatePicker from 'react-native-date-picker';
 
-const StudentAttendance = () => {
+const StudentAttendance = ({navigation}) => {
     const [selectedClass, setSelectedClass] = useState('');
     const [selectedSection, setSelectedSection] = useState('');
     const [classList, setClassList] = useState([]);
@@ -32,6 +32,17 @@ const StudentAttendance = () => {
             setSessionDate(JSON.parse(res).sessionyearstartdate);
         });
         getClassList();
+    }, []);
+
+    useEffect(() => {
+         const handleBackPress = () => {
+            navigation.goBack();
+            return true;
+          };
+          BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+          return () => {
+            BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+          };
     }, []);
 
     useEffect(() => {

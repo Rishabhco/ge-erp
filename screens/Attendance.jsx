@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet,BackHandler} from 'react-native';
 import { forkJoin } from 'rxjs';
 import moment from 'moment';
 import { Calendar } from 'react-native-calendars';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getStudentMonthlyAttendance, getStudentAttendanceSummary } from '../services/attendance.services';
 
-const Attendance = () => {
+const Attendance = ({navigation}) => {
     const [min, setMin] = useState(null);
     const [max, setMax] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
@@ -29,6 +29,14 @@ const Attendance = () => {
         const toDate = moment(new Date(date.getFullYear(), date.getMonth() + 1, 0)).format('MM/DD/YY');
         setSelectedDate(moment(new Date(date.getFullYear(), date.getMonth(), date.getDate())).format('YYYY-MM-DD'));
         getAttendance(fromDate, toDate);
+        const handleBackPress = () => {
+            navigation.goBack();
+            return true;
+          };
+          BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+          return () => {
+            BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+          };
     }, []);
 
     const handleDayPress = (day) => {

@@ -1,7 +1,17 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React,{useEffect} from 'react';
+import { View, Text, StyleSheet,BackHandler} from 'react-native';
 
-const Reports = () => {
+const Reports = ({navigation}) => {
+    useEffect(() => {
+        const handleBackPress = () => {
+            navigation.goBack();
+            return true;
+          };
+          BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+          return () => {
+            BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+          };
+    }, []);
     return (
         <View style={styles.container}>
             <Text style={styles.logo}>My App</Text>

@@ -1,13 +1,12 @@
 import React, { useEffect, useState,Fragment} from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { View, Text, StyleSheet, ScrollView,BackHandler } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { dayConstant } from '../constants/day.constant';
 import { UserTypeConstant } from '../constants/userType.constant';
 import { getStudentTimeTable, getTeacherTimeTable } from '../services/timeTable.services';
 import {getLoginDetails} from '../helper/auth.helper';
 
-const TimeTable = () => {
+const TimeTable = ({navigation}) => {
   const [data, setData] = useState([]);
   const [filterData, setFilterData] = useState([]);
   const [dayId, setDayId] = useState(dayConstant.Monday);
@@ -43,6 +42,14 @@ const TimeTable = () => {
               console.log(err);
             });
         }
+        const handleBackPress = () => {
+          navigation.goBack();
+          return true;
+        };
+        BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+        return () => {
+          BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+        };
   }, []);
 
   const handleDayChange = (selectedDayId) => {

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {getStudentDetail} from '../services/student.services';
-import {View, Text, StyleSheet, Image, ScrollView,TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, Image, ScrollView,TouchableOpacity,BackHandler} from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FileUploadTypeEnum } from '../constants/global.constant';
@@ -19,6 +19,14 @@ const StudentProfile = ({route,navigation}) => {
     }).catch(err=>{
       console.log(err);
     })
+      const handleBackPress = () => {
+          navigation.goBack();
+          return true;
+      };
+      BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+      return () => {
+          BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+      };
   }, []);
 
   useEffect(() => {

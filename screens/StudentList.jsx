@@ -1,5 +1,5 @@
 import React, { useState, useEffect ,Fragment} from 'react';
-import { View, Text, StyleSheet, Image, ScrollView,TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView,TouchableOpacity,BackHandler} from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { getClasses, getSections } from '../services/class.services';
 import { getAllStudents } from '../services/student.services';
@@ -14,6 +14,14 @@ const StudentList = ({ navigation }) => {
 
   useEffect(() => {
     getClassList();
+      const handleBackPress = () => {
+          navigation.goBack();
+          return true;
+      };
+      BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+      return () => {
+          BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+      };
   }, []);
 
   useEffect(() => {

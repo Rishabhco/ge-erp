@@ -1,9 +1,9 @@
 import React, { useEffect,useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Animated,ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Animated,ScrollView,BackHandler } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {getMarks} from "../services/marks.services"
 
-const Marks = () => {
+const Marks = ({navigation}) => {
     const [marks,setMarks] = useState([]);
 
     function groupBy(collection, property) {
@@ -33,6 +33,14 @@ const Marks = () => {
         }).catch((err)=>{
             console.log(err);
         })
+        const handleBackPress = () => {
+            navigation.goBack();
+            return true;
+          }
+          BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+          return () => {
+            BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+          }
     },[]);
 
     const toggleCard = (key) => {
