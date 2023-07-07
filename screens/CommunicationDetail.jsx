@@ -13,8 +13,11 @@ const CommunicationDetail = ({ route ,navigation}) => {
 
   useEffect(() => {
     getCommunicationDetail(route.params.id).then((res) => {
+        console.log(res);
         const attachments = res.attachments ? res.attachments.split(',') : [];
-        const filenames = res.filenames ? res.filenames.split(',') : [];
+        const filenames = res.file_name ? res.file_name.split(',') : [];
+        console.log(attachments);
+        console.log(filenames);
         setAttachment([]);
         if (attachments) {
           attachments.forEach((item, index) => {

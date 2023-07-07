@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect,useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView,BackHandler} from 'react-native';
 import { UserTypeConstant } from '../constants/userType.constant';
 import { sOptions, tOptions } from '../constants/dashboardOptions.constant';
 import {getLoginDetails} from '../helper/auth.helper';
@@ -32,7 +32,16 @@ const Dashboard = ({navigation}) => {
         }
     };
     getLoginDetail();
+    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+    };
   },[]);
+
+  const handleBackPress = () => {
+      BackHandler.exitApp();
+      return true;
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

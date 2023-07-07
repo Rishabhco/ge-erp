@@ -1,5 +1,4 @@
 import React, { useState,useEffect } from 'react';
-import { Alert,BackHandler } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
@@ -20,23 +19,11 @@ const App = () => {
   
   useEffect(() => {
     checkLoggedIn();
-    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
-    return () => {
-      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
-    };
   }, []);
 
   const checkLoggedIn = async () => {
     const isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
     setIsLoggedIn(isLoggedIn);
-  };
-
-  const handleBackPress = () => {
-    if(!isLoggedIn) {
-      BackHandler.exitApp();
-      return true;
-    }
-    return false;
   };
 
   return (
