@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useEffect,useState } from 'react';
+import React, { useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView,BackHandler} from 'react-native';
 import { UserTypeConstant } from '../constants/userType.constant';
 import { sOptions, tOptions } from '../constants/dashboardOptions.constant';
@@ -14,39 +15,38 @@ const Dashboard = ({navigation}) => {
   const [name,setName]=useState("");
   const [subtitle,setsubtitle]=useState("");
 
-  useEffect(() => {
-    requestUserPermission();
-    notificationListener();
-  }, []);
 
-  useEffect(()=>{
-    async function getLoginDetail(){
-      const loginDetails=await getLoginDetails();
-        if(loginDetails.StuStaffTypeId==UserTypeConstant.Student){
+  useFocusEffect(()=>{
+      async function getLoginDetail() {
+        const val=await getLoginDetails();
+        console.log(val);
+        if(val.StuStaffTypeId==UserTypeConstant.Student){
           setOptions(sOptions);
           AsyncStorage.getItem('Profile').then((response)=>{
             setName(JSON.parse(response).studentname);
             setsubtitle(JSON.parse(response).classname+" "+JSON.parse(response).sectionname);
           })
         }
-        if(loginDetails.StuStaffTypeId==UserTypeConstant.Teacher){
+        if(val.StuStaffTypeId==UserTypeConstant.Teacher){
           setOptions(tOptions);
           AsyncStorage.getItem('Profile').then((response)=>{
             setName(JSON.parse(response).firstname+" "+JSON.parse(response).lastname);
             setsubtitle(JSON.parse(response).departmentname);
           })
         }
-    };
-    getLoginDetail();
+      }
+      getLoginDetail();
+    requestUserPermission();
+    notificationListener();
     BackHandler.addEventListener('hardwareBackPress', handleBackPress);
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
     };
-  },[]);
+  });
 
   const handleBackPress = () => {
-      BackHandler.exitApp();
-      return true;
+    BackHandler.exitApp();
+    return true;
   };
 
   return (

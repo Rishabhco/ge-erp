@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import { View, Text, StyleSheet, Image, ScrollView,BackHandler } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { UserTypeConstant } from '../constants/userType.constant';
@@ -8,7 +9,7 @@ const Profile = ({navigation}) => {
   const [userType, setUserType] = useState('');
   const [profile, setProfile] = useState({});
 
-  useEffect(() => {
+  useFocusEffect(() => {
     async function getLoginDetail() {
     const loginDetails = await getLoginDetails();
       if (loginDetails.StuStaffTypeId == UserTypeConstant.Student) {
@@ -28,7 +29,7 @@ const Profile = ({navigation}) => {
     };
     BackHandler.addEventListener('hardwareBackPress', handleBackPress);
     return () => { BackHandler.removeEventListener('hardwareBackPress', handleBackPress);};
-  }, []);
+  });
 
   return (
     userType=='Student'?

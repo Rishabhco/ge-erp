@@ -23,7 +23,7 @@ const Login = ({ navigation }) => {
             if (response.status === 200) {
               if(response.data.StuStaffTypeId==UserTypeConstant.Student){
                 getStudentDetails().then(async (response) => {
-                  setStudentDetails(response).then(async (response) => {
+                  setStudentDetails(response).then(async (res) => {
                     await AsyncStorage.setItem('isLoggedIn', 'true');
                     navigation.navigate('MainTabs');
                   });
@@ -33,8 +33,8 @@ const Login = ({ navigation }) => {
                 });
               }
               if(response.data.StuStaffTypeId==UserTypeConstant.Teacher){
-                getTeacherDetails().then(async (response) => {
-                  setTeacherDetails(response).then(async (response) => {
+                getTeacherDetails().then(async (res) => {
+                  setTeacherDetails(res).then(async (response) => {
                     await AsyncStorage.setItem('isLoggedIn', 'true');
                     navigation.navigate('MainTabs');
                   });
@@ -61,7 +61,6 @@ const Login = ({ navigation }) => {
           setErrorMessage(error.response.data.error_description);
         else
           setErrorMessage(error.response); 
-
       });
     }
   };
