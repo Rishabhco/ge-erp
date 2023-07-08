@@ -25,4 +25,5 @@ export const screenIDConstant={
     GET_STUDENT_LIST_FOR_COMMUNICATION:'x_mob_studentlist',
     GET_EMPLOYEE_LIST_FOR_COMMUNICATION:'x_mob_employeelist',
     SEND_COMMUNICATION:'6021_SendCommunication',
+    MOBILE_SAVE_TOKEN:'x_6000_MobileSaveToken'
 };

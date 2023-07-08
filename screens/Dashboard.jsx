@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView,BackHandler
 import { UserTypeConstant } from '../constants/userType.constant';
 import { sOptions, tOptions } from '../constants/dashboardOptions.constant';
 import {getLoginDetails} from '../helper/auth.helper';
+import { requestUserPermission,notificationListener} from '../services/fcm.services';
 
 const Dashboard = ({navigation}) => {
   const handlePress = (name) => () => {
@@ -12,6 +13,11 @@ const Dashboard = ({navigation}) => {
   const [options,setOptions]=useState([]);
   const [name,setName]=useState("");
   const [subtitle,setsubtitle]=useState("");
+
+  useEffect(() => {
+    requestUserPermission();
+    notificationListener();
+  }, []);
 
   useEffect(()=>{
     async function getLoginDetail(){

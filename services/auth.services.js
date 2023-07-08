@@ -29,6 +29,7 @@ const logout = async () => {
         const schoolCode = schoolDetails.schoolcode;
         await AsyncStorage.clear();
         await AsyncStorage.setItem("schoolcode", schoolCode);
+        await AsyncStorage.setItem("isLoggedIn", "false");
         console.log('AsyncStorage cleared successfully.');
         resolve("Logout Successfully")
     })

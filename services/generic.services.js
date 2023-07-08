@@ -63,6 +63,9 @@ const performDataOperation = async (body) => {
         }).then(async (response) => {
             resolve(response);
         }).catch(error => {
+            if(axios.isAxiosError(error)){
+                console.log(error.response);
+            }
             reject(error);
         })
     });

@@ -4,18 +4,17 @@ import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
 import 'react-native-reanimated';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import messaging from '@react-native-firebase/messaging';
 
 import Login from './screens/Login';
 import MainTabs from './utils/MainTabs';
 import SignUp from './screens/SignUp';
 import ForgotPassword from './screens/ForgotPassword';
-import NotificationController from './NotificationController.android';
 
 const Stack = createStackNavigator();
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loginChecked, setLoginChecked] = useState(false);
   
   useEffect(() => {
     checkLoggedIn();
@@ -23,12 +22,16 @@ const App = () => {
 
   const checkLoggedIn = async () => {
     const isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
-    setIsLoggedIn(isLoggedIn);
+    setIsLoggedIn(isLoggedIn==="true");
+    setLoginChecked(true);
   };
+
+  if (!loginChecked) {
+    return null; // Render loading screen or splash screen while checking login status
+  }
 
   return (
     <NavigationContainer independent={true}>
-      {/* <NotificationController/> */}
       <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={isLoggedIn?'MainTabs':'Login'}>
         <Stack.Screen name="MainTabs" component={MainTabs}/>
         <Stack.Screen name="Login" component={Login}/>
